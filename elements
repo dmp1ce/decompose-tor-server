@@ -1,0 +1,18 @@
+PROJECT_ENVIRONMENT="development"
+
+ELEMENTS_POST_PROCESS+=( 'tor-post' )
+
+_decompose-elements-tor-post() {
+  if [ "$PROJECT_ENVIRONMENT" == "production" ]; then
+    export PRODUCTION=true; unset DEVELOPMENT
+  else
+    export DEVELOPMENT=true; unset PRODUCTION
+  fi
+}
+
+# Allow project elements file to override all elements
+source $(_decompose-project-root)/elements
+
+PROJECT_DECOMPOSE_STATIC_TOR_ENVIRONMENT_VERSION="1.0.0"
+
+# vim:syntax=sh

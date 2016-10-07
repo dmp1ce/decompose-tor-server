@@ -5,6 +5,9 @@ services:
     build:
       dockerfile: Dockerfile.tor
       context: .
+{{#PRODUCTION}}
+    restart: always
+{{/PRODUCTION}}
     ports:
       - "9001:9001"
       - "9030:9030"
