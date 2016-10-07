@@ -1,6 +1,43 @@
 source $(_decompose-project-root)/.decompose/environment/lib/docker/processes
 source $(_decompose-project-root)/.decompose/environment/lib/common/processes
 
-DECOMPOSE_PROCESSES=( "${DECOMPOSE_COMMON_PROCESSES[@]}" "${DECOMPOSE_DOCKER_PROCESSES[@]}" )
+DECOMPOSE_PROCESSES=( "${DECOMPOSE_COMMON_PROCESSES[@]}" "${DECOMPOSE_DOCKER_PROCESSES[@]}"
+  'build' 'up' 'cron' 'arm' )
+
+_decompose-process-build(){
+  echo "Building ..."
+  decompose --build
+  docker-compose pull
+  docker-compose build
+}
+_decompose-process-build_help() {
+  echo "  Process for building containers"
+}
+
+_decompose-process-up(){
+  echo "Starting ..."
+  docker-compose up -d
+}
+_decompose-process-up_help() {
+  echo "  Process for starting containers"
+}
+
+_decompose-process-cron(){
+  echo "Running cron ..."
+  _decompose-process-build
+  _decompose-process-up
+  _decompose-process-remove-dangling-docker-images
+}
+_decompose-process-cron_help() {
+  echo "  Process to be run periodically on host"
+}
+
+_decompose-process-arm() {
+  echo "Starting arm ..."
+  docker-compose exec tor arm
+}
+_decompose-process-arm_help() {
+  echo "  Start arm monitor"
+}
 
 # vim:syntax=sh tabstop=2 shiftwidth=2 expandtab
