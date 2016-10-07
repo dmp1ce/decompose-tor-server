@@ -1,0 +1,6 @@
+source $(_decompose-project-root)/.decompose/environment/lib/docker/processes
+source $(_decompose-project-root)/.decompose/environment/lib/common/processes
+
+DECOMPOSE_PROCESSES=( "${DECOMPOSE_COMMON_PROCESSES[@]}" "${DECOMPOSE_DOCKER_PROCESSES[@]}" )
+
+# vim:syntax=sh tabstop=2 shiftwidth=2 expandtab
