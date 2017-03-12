@@ -8,7 +8,7 @@ _decompose-process-build(){
   echo "Building ..."
   decompose --build
   docker-compose pull
-  docker-compose build
+  docker-compose build --pull
 }
 _decompose-process-build_help() {
   echo "  Process for building containers"
