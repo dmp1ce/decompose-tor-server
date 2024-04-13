@@ -2,7 +2,7 @@ source $(_decompose-project-root)/.decompose/environment/lib/docker/processes
 source $(_decompose-project-root)/.decompose/environment/lib/common/processes
 
 DECOMPOSE_PROCESSES=( "${DECOMPOSE_COMMON_PROCESSES[@]}" "${DECOMPOSE_DOCKER_PROCESSES[@]}"
-  'build' 'up' 'cron' 'arm' )
+  'build' 'up' 'cron' 'arm' 'nyx' )
 
 _decompose-process-build(){
   echo "Building ..."
@@ -33,11 +33,20 @@ _decompose-process-cron_help() {
 }
 
 _decompose-process-arm() {
-  echo "Starting arm ..."
-  docker-compose exec tor arm
+  echo "WARNING: 'arm' was rebranded as 'nyx'"
+  _decompose-process-nyx
 }
 _decompose-process-arm_help() {
-  echo "  Start arm monitor"
+  echo "  WARNING: 'arm' was rebranded as 'nyx'"
+  _decompose-process-nyx_help
+}
+
+_decompose-process-nyx() {
+  echo "Starting nyx ..."
+  docker-compose exec tor nyx
+}
+_decompose-process-arm_help() {
+  echo "  Start nyx monitor"
 }
 
 # vim:syntax=sh tabstop=2 shiftwidth=2 expandtab
